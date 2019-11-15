@@ -12,7 +12,7 @@ RUN conda install --yes --file /tmp/requirements.txt && \
     
 USER root
 
-COPY . ${HOME}
+COPY data_for_container ${HOME}
 RUN chown -R ${NB_UID} ${HOME}
 
 USER ${NB_USER}
