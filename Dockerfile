@@ -5,9 +5,14 @@ ARG NB_UID=1000
 ENV NB_UID ${NB_UID}
 ENV HOME /home/${NB_USER}
 
+COPY requirements.txt /tmp/
+RUN conda install --yes --file /tmp/requirements.txt && \
+	fix-permissions $CONDA_DIR && \
+	fix-permissions /home/$NB_USER
+    
 USER root
 
-COPY data_for_container ${HOME}
+COPY . ${HOME}
 RUN chown -R ${NB_UID} ${HOME}
 
 USER ${NB_USER}
